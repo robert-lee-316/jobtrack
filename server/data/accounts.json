@@ -1,0 +1,14 @@
+[
+  {
+    "id": "241863f5-1626-419f-bba7-e3956cb57e61",
+    "email": "robertwalkerlee316@gmail.com",
+    "fullName": "Robert Lee",
+    "passwordHash": "a470ee5f8ead1ccff77c67c0403e1a81.7659f8ea2be8356fe8fad1b74442d2059326d75c27adb3667e3792e0853913e4"
+  },
+  {
+    "id": "ea57bc3a-bef7-41c3-838c-e6300866ba29",
+    "email": "joseph.fennell.dev@gmail.com",
+    "fullName": "Joseph Fennell",
+    "passwordHash": "a840a152fd453d4f83c2d44c935f1094.5353b05995bf78b3147ce86b94e2d36879f40932615397afbf9a596297627c72"
+  }
+]

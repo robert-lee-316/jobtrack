@@ -1,0 +1,33 @@
+CHROME EXTENSION → JOBTRACK WEB APP INTEGRATION GUIDE
+
+The extension from v2.5.4 is a SEPARATE application and is NOT changed in this package.
+
+Proposed workflow:
+1. User signs into the website with Supabase Auth.
+2. Provide a secure, explicit "Connect extension" authorization flow (recommended: PKCE in extension using the Supabase auth client; never store account passwords or service role key in source).
+3. The extension extracts exact job_title, company, salary, location, description, technologies, platform and job_url as it already does.
+4. Extension builds an object matching POST /api/applications, including status:'Saved' or 'Applied', then sends a user's SHORT-LIVED Bearer access token.
+5. Node verifies the token with Supabase Auth and writes to Postgres under authenticated user RLS.
+6. The web dashboard reloads to show the saved job. Add websocket realtime subscription or polling for immediate push updates later.
+7. Handle duplicate job URLs (HTTP 409) with a user-visible 'Already tracked' prompt and an optional PATCH action.
+
+SECURITY:
+- The current API CORS allowlist only contains CLIENT_ORIGIN. Do not set '*' for authorized production operations.
+- Chrome-extension MV3 origins use chrome-extension://<extension-id> and must be deliberately allowlisted after completing login flow.
+- An extension must request host permissions for the intended API, and should hold short-lived user tokens securely, not embed service-role secrets.
+- For production consider an explicit extension linking code / OAuth PKCE flow; verify callback origins.
+- All application and resume access is guarded by user ownership and Supabase RLS.
+
+Example extracted payload:
+{
+ "company":"Maven Companies",
+ "job_title":"Senior Frontend Developer React (AEM Platform Experience)",
+ "platform":"Dice",
+ "job_url":"https://www.dice.com/job-detail/EXAMPLE",
+ "salary":"Depends on Experience",
+ "location":"Remote",
+ "remote_type":"Remote",
+ "description":"Full extracted job description...",
+ "technologies":["React","TypeScript","AEM"],
+ "status":"Saved"
+}

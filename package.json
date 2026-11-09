@@ -1,0 +1,21 @@
+{
+  "name": "job-tracker-web-platform",
+  "private": true,
+  "version": "1.5.3",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,blue \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "node --test server/tests/*.test.js client/src/technologies.test.js client/src/profile-analytics.test.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
